@@ -1,0 +1,1 @@
+docker exec -it 13eb2be07563 mysql -u tester -p -e "USE test; SELECT * FROM users;"
