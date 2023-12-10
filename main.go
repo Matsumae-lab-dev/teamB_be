@@ -49,6 +49,8 @@ func main() {
 
 	r.GET("", handler.Auth)
 
+	r.GET("/user/:id", handler.GetUser)
+
 	r.POST("/todo", handler.CreateTodo)
 	r.GET("/todo/:id", handler.GetTodoList)
 	r.PUT("/todo/:id", handler.UpdateTodo)
