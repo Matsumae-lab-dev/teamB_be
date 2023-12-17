@@ -9,7 +9,7 @@ import (
 
 func Migrate() {
 
-	DB.Exec("DROP TABLE IF EXISTS users_todos")
+	DB.Exec("DROP TABLE IF EXISTS todos_users")
 	DB.Exec("DROP TABLE IF EXISTS users")
 	DB.Exec("DROP TABLE IF EXISTS todos")
 

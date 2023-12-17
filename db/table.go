@@ -2,22 +2,18 @@ package db
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 type User struct {
-	gorm.Model
 	Id        uint   `gorm:"primaryKey"`
 	Username  string `gorm:"not null"`
 	Email     string `gorm:"not null;unique"`
 	Password  string `gorm:"not null"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	Todos     []Todo `gorm:"many2many:users_todos"`
+	Todos     []Todo `gorm:"many2many:todos_users"`
 }
 type Todo struct {
-	gorm.Model
 	Id        uint   `gorm:"prmaryKey"`
 	Title     string `gorm:"not null"`
 	Content   string

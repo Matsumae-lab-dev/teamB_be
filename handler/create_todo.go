@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Matsumae-lab-dev/teamB_be/db"
@@ -56,6 +57,11 @@ func CreateTodo(c echo.Context) error {
 		RepeatCount: obj.RepeatCount,
 	}
 	db.DB.Create(&new)
+
+	query := fmt.Sprintf("INSERT INTO todos_users (user_id, todo_id) VALUES (%d, %d);", userid, new.Id)
+	if err := db.DB.Exec(query).Error; err != nil {
+		return err
+	}
 	return c.JSON(http.StatusCreated, echo.Map{
 		"id":      new.Id,
 		"title":   new.Title,

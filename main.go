@@ -18,7 +18,7 @@ func main() {
 	godotenv.Load(".env")
 	e := echo.New()
 	db.Connect()
-	db.Migrate()
+	// db.Migrate()
 
 	config := middleware.JWTConfig{
 		SigningKey: []byte(os.Getenv("JWT_SECRET_KEY")),
@@ -52,7 +52,7 @@ func main() {
 	r.GET("/user/:id", handler.GetUser)
 
 	r.POST("/todo", handler.CreateTodo)
-	r.GET("/todo/:id", handler.GetTodoList)
+	r.GET("/todo", handler.GetTodoList)
 	r.PUT("/todo/:id", handler.UpdateTodo)
 	r.DELETE("/todo/:id", handler.DeleteTodo)
 

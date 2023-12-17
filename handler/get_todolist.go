@@ -4,14 +4,17 @@ import (
 	"net/http"
 
 	"github.com/Matsumae-lab-dev/teamB_be/db"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
 
-func GetUser(c echo.Context) error {
-	id := c.Param("id")
-	var user db.User
-	if err := db.DB.Where("id = ?", id).First(&user).Error; err != nil {
+func GetTodoList(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	userid := claims["id"].(float64)
+	var usertodo db.User
+	if err := db.DB.Preload("Todos").First(&usertodo, userid).Error; err != nil {
 
 		if err == gorm.ErrRecordNotFound {
 			// return 404
@@ -29,7 +32,7 @@ func GetUser(c echo.Context) error {
 	} else {
 		// return 200
 		return c.JSON(http.StatusCreated, echo.Map{
-			"user": user,
+			"todos": usertodo.Todos,
 		})
 
 	}
