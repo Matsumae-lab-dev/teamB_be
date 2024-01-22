@@ -40,6 +40,7 @@ func main() {
 			return token, nil
 		},
 	}
+	e.Use(middleware.CORS())
 
 	e.POST("/signup", handler.Signup)
 	e.POST("/login", handler.Login)

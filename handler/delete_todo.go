@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Matsumae-lab-dev/teamB_be/db"
@@ -12,6 +13,10 @@ func DeleteTodo(c echo.Context) error {
 
 	id := c.Param("id")
 	var todo db.Todo
+	query := fmt.Sprintf("DELETE FROM todos_users WHERE todo_id = %s;", id)
+	if err := db.DB.Exec(query).Error; err != nil {
+		return err
+	}
 	if err := db.DB.Where("id = ?", id).First(&todo).Error; err != nil {
 
 		if err == gorm.ErrRecordNotFound {

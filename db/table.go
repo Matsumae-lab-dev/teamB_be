@@ -14,7 +14,7 @@ type User struct {
 	Todos     []Todo `gorm:"many2many:todos_users"`
 }
 type Todo struct {
-	Id        uint   `gorm:"prmaryKey"`
+	Id        uint   `gorm:"primaryKey"`
 	Title     string `gorm:"not null"`
 	Content   string
 	CreatedAt time.Time

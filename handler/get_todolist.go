@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"sort"
 
 	"github.com/Matsumae-lab-dev/teamB_be/db"
 	"github.com/dgrijalva/jwt-go"
@@ -30,10 +31,23 @@ func GetTodoList(c echo.Context) error {
 		}
 
 	} else {
-		// return 200
-		return c.JSON(http.StatusCreated, echo.Map{
-			"todos": usertodo.Todos,
+		sort.Slice(usertodo.Todos, func(i, j int) bool {
+			return usertodo.Todos[i].Tag < usertodo.Todos[j].Tag
 		})
 
+		groupedTodos := make(map[string][]db.Todo)
+		for _, todo := range usertodo.Todos {
+			groupedTodos[todo.Tag] = append(groupedTodos[todo.Tag], todo)
+		}
+
+		var sortedTodos [][]db.Todo
+		for _, todos := range groupedTodos {
+			sortedTodos = append(sortedTodos, todos)
+		}
+
+		// return 200
+		return c.JSON(http.StatusOK, echo.Map{
+			"todos": sortedTodos,
+		})
 	}
 }
