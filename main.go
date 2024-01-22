@@ -18,7 +18,7 @@ func main() {
 	godotenv.Load(".env")
 	e := echo.New()
 	db.Connect()
-	// db.Migrate()
+	db.Migrate()
 
 	config := middleware.JWTConfig{
 		SigningKey: []byte(os.Getenv("JWT_SECRET_KEY")),

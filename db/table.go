@@ -14,12 +14,12 @@ type User struct {
 	Todos     []Todo `gorm:"many2many:todos_users"`
 }
 type Todo struct {
-	Id        uint   `gorm:"primaryKey"`
-	Title     string `gorm:"not null"`
-	Content   string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	// Deadline    string
+	Id          uint   `gorm:"primaryKey"`
+	Title       string `gorm:"not null"`
+	Content     string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	Deadline    string
 	Tag         string
 	TagColor    string
 	CreaterId   uint `gorm:"not null"`

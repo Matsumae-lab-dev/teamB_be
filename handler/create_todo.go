@@ -12,9 +12,9 @@ import (
 
 func CreateTodo(c echo.Context) error {
 	type Todo struct {
-		Title   string `json:"title"`
-		Content string `json:"content"`
-		// Deadline    time.Time `json:"deadline"`
+		Title       string `json:"title"`
+		Content     string `json:"content"`
+		Deadline    string `json:"deadline"`
 		Tag         string `json:"tag"`
 		TagColor    string `json:"tag_color"`
 		CreaterId   uint   `json:"creater_id"`
@@ -46,9 +46,9 @@ func CreateTodo(c echo.Context) error {
 
 	// create todo, return 201
 	new := db.Todo{
-		Title:   obj.Title,
-		Content: obj.Content,
-		// Deadline:    obj.Deadline,
+		Title:       obj.Title,
+		Content:     obj.Content,
+		Deadline:    obj.Deadline,
 		Tag:         obj.Tag,
 		TagColor:    obj.TagColor,
 		CreaterId:   userid,
@@ -63,10 +63,10 @@ func CreateTodo(c echo.Context) error {
 		return err
 	}
 	return c.JSON(http.StatusCreated, echo.Map{
-		"id":      new.Id,
-		"title":   new.Title,
-		"content": new.Content,
-		// "deadline":     new.Deadline,
+		"id":           new.Id,
+		"title":        new.Title,
+		"content":      new.Content,
+		"deadline":     new.Deadline,
 		"tag":          new.Tag,
 		"tag_color":    new.TagColor,
 		"creater_id":   new.CreaterId,
